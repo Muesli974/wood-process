@@ -12,16 +12,15 @@ def lightImageMapper(arg):
 
 
 
-class lightEffect(layer.Layer):
+class lightEffect(object):
     """docstring for lightEffect."""
-    def __init__(self, type):
-
-        super(lightEffect, self).__init__(lightImageMapper(type))
-        self.type = type
-        self.x = type/2
-        self.y = type/2
+    def __init__(self, lightType, position = (0, 0)):
+        self.sheet = pygame.image.load(lightImageMapper(lightType))
+        self.x = position[0]
+        self.y = position[1]
+        self.lightType = lightType
 
     def update(self, inputs):
-        (self.x, self.y) = pygame.mouse.get_pos()
-    def draw(self, filter):
-        filter.blit(self.sheet, (100, 100), None)
+        (self.x, self.y) = map(lambda x: x-self.lightType/2, pygame.mouse.get_pos())
+    def draw(self, shadow):
+        shadow.blit(self.sheet, (self.x, self.y))
