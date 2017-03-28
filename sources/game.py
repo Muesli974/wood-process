@@ -25,9 +25,7 @@ class Game:
         # Create the clock
         self.clock = pygame.time.Clock()
 
-        # shadow init
-        self.shadow = pygame.surface.Surface(self.window.size)
-        self.shadow.fill(pygame.color.Color('Grey'))
+
 
         # Create some layers
         self.layers.append(layer.Layer("../assets/circle.png"))
@@ -51,15 +49,19 @@ class Game:
                 elif event.type == pygame.KEYUP:
                     self.onKeyUp(event.key)
 
+            # shadow init
+            shadow = pygame.surface.Surface((1920,1080))
+            shadow.fill(pygame.color.Color('Grey'))
+
             # Update and draw all the shit
             for layer in self.layers:
                 layer.update(self.inputs)
                 layer.draw(self.window.win)
             for effect in self.effects:
                 effect.update(self.inputs)
-                effect.draw(self.shadow)
+                effect.draw(shadow)
 
-            self.shadow.blit(self.shadow, (0, 0), special_flags= pygame.BLEND_RGBA_SUB)
+            self.window.win.blit(shadow, (0, 0), special_flags= pygame.BLEND_RGBA_SUB)
 
             # Flip the screen
             pygame.display.flip()
