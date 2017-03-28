@@ -1,9 +1,13 @@
-import pygame, layer
+import pygame, layer, light
 
 class Game:
     fps = 60
     isRunning = True
+
+    # All the shit to display
     layers = []
+    effects = []
+    # inputs listeners
     inputs = {
         "left": False,
         "up": False,
@@ -12,28 +16,33 @@ class Game:
     }
 
     def __init__(self):
-        #Launch pygame modules
+        # Launch pygame modules
         pygame.display.init()
 
-        #Create the window
+        # Create the window
         self.window = Window()
 
-        #Create the clock
+        # Create the clock
         self.clock = pygame.time.Clock()
 
-        #Create some layers
+        # shadow init
+        self.shadow = pygame.surface.Surface(self.window.size)
+        self.shadow.fill(pygame.color.Color('Grey'))
+
+        # Create some layers
         self.layers.append(layer.Layer("../assets/circle.png"))
+        self.effects.append(light.lightEffect(100))
 
     def __del__(self):
         pass
 
     def start(self):
-        #Start the main loop
+        # Start the main loop
         while self.isRunning:
-            #Time manager
+            # Time manager
             self.clock.tick(self.fps)
 
-            #Events handling
+            # Events handling
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.end()
@@ -42,23 +51,28 @@ class Game:
                 elif event.type == pygame.KEYUP:
                     self.onKeyUp(event.key)
 
-            #Update and draw all the shit
+            # Update and draw all the shit
             for layer in self.layers:
                 layer.update(self.inputs)
                 layer.draw(self.window.win)
+            for effect in self.effects:
+                effect.update(self.inputs)
+                effect.draw(self.shadow)
 
-            #Flip the screen
+            self.shadow.blit(self.shadow, (0, 0), special_flags= pygame.BLEND_RGBA_SUB)
+
+            # Flip the screen
             pygame.display.flip()
 
-        #Delete the Window
+        # Delete the Window
         del self.window
 
-        #Quit all pygame modules
-        #The pygame window will be deleted at this time
+        # Quit all pygame modules
+        # The pygame window will be deleted at this time
         pygame.display.quit()
 
     def end(self):
-        #Close the main loop
+        # Close the main loop
         self.isRunning = False
 
     def onKeyDown(self, key):
@@ -87,10 +101,10 @@ class Window:
     bgColor = (35, 35, 255)
 
     def __init__(self):
-        #Create the window
+        # Create the window
         self.win = pygame.display.set_mode(self.size, pygame.DOUBLEBUF)
 
-        #Fill the background and set the title
+        # Fill the background and set the title
         self.win.fill(self.bgColor)
         pygame.display.set_caption(self.title)
 
