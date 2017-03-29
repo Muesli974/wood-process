@@ -18,6 +18,7 @@ class Game:
         clk = pygame.time.Clock()
         screen = pygame.display.set_mode((WINDOW_W, WINDOW_H), pygame.DOUBLEBUF)
         eh = EventHandler()
+        pastDelay = 0
 
         #Load level
         lvl = Level(0)
@@ -30,7 +31,7 @@ class Game:
 
             #Update entities
             for entity in lvl.get():
-                entity.update(self.inputs, 0)
+                entity.update(self.inputs, pastDelay)
 
             #Render entities
             for entity in lvl.get():
@@ -38,7 +39,7 @@ class Game:
 
             #Display the stuff and wait
             pygame.display.flip()
-            clk.tick(MAX_FPS)
+            pastDelay = clk.tick(MAX_FPS)
             pygame.display.set_caption("fps: " + str(clk.get_fps()))
 
         #Quit all

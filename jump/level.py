@@ -6,7 +6,7 @@ class Level:
     def __init__(self, n):
         #Attributes
         self.list = [
-            Player()
+            Player(1)
         ]
 
     def get(self):

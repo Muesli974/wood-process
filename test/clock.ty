@@ -1,0 +1,11 @@
+import pygame
+
+pygame.init()
+
+clk = pygame.time.Clock()
+
+for i in range(0, 20):
+    print(clk.tick(60))
+
+
+pygame.quit()
