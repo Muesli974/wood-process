@@ -62,6 +62,9 @@ class EventHandler:
     }]
 
     def __init__(self, pNb = 1):
+
+        print("New class EventHandler")
+        
         #Attributes
         self.controllers = [{
             'quit': False
