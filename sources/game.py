@@ -1,4 +1,4 @@
-import pygame, layer, light
+import pygame, layer, light, keyboard
 
 class Game:
     fps = 60
@@ -7,13 +7,7 @@ class Game:
     # All the shit to display
     layers = []
     effects = []
-    # inputs listeners
-    inputs = {
-        "left": False,
-        "up": False,
-        "right": False,
-        "down": False
-    }
+
 
     def __init__(self):
         # Launch pygame modules
@@ -25,7 +19,8 @@ class Game:
         # Create the clock
         self.clock = pygame.time.Clock()
 
-
+        # Create the keyboard handler
+        self.keyboard = keyboard.keyboard()
 
         # Create some layers
         self.layers.append(layer.Layer("../assets/circle.png"))
@@ -40,14 +35,8 @@ class Game:
             # Time manager
             self.clock.tick(self.fps)
 
-            # Events handling
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.end()
-                elif event.type == pygame.KEYDOWN:
-                    self.onKeyDown(event.key)
-                elif event.type == pygame.KEYUP:
-                    self.onKeyUp(event.key)
+            # Update the inputs
+            self.keyboard.update()
 
             # shadow init
             shadow = pygame.surface.Surface((1920,1080))
@@ -55,10 +44,10 @@ class Game:
 
             # Update and draw all the shit
             for layer in self.layers:
-                layer.update(self.inputs)
+                layer.update(self.keyboard.inputs)
                 layer.draw(self.window.win)
             for effect in self.effects:
-                effect.update(self.inputs)
+                effect.update(self.keyboard.inputs)
                 effect.draw(shadow)
 
             self.window.win.blit(shadow, (0, 0), special_flags= pygame.BLEND_RGBA_SUB)
@@ -76,26 +65,6 @@ class Game:
     def end(self):
         # Close the main loop
         self.isRunning = False
-
-    def onKeyDown(self, key):
-        if key == pygame.K_LEFT:
-            self.inputs["left"] = True
-        elif key == pygame.K_UP:
-            self.inputs["up"] = True
-        elif key == pygame.K_RIGHT:
-            self.inputs["right"] = True
-        elif key == pygame.K_DOWN:
-            self.inputs["down"] = True
-
-    def onKeyUp(self, key):
-        if key == pygame.K_LEFT:
-            self.inputs["left"] = False
-        elif key == pygame.K_UP:
-            self.inputs["up"] = False
-        elif key == pygame.K_RIGHT:
-            self.inputs["right"] = False
-        elif key == pygame.K_DOWN:
-            self.inputs["down"] = False
 
 class Window:
     title = "Suce ma bite!"
