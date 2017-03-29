@@ -6,7 +6,10 @@ MAX_FPS = 30
 
 class Game:
     def __init__(self):
+<<<<<<< HEAD
         print("New class Game")
+=======
+>>>>>>> origin/master
         #Attributes
         self.stillRunning = True
         self.inputs = None

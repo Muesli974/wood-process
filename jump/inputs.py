@@ -62,7 +62,10 @@ class EventHandler:
     }]
 
     def __init__(self, pNb = 1):
+<<<<<<< HEAD
         print("New class EventHandler")
+=======
+>>>>>>> origin/master
         #Attributes
         self.controllers = [{
             'quit': False

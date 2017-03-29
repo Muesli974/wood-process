@@ -17,6 +17,6 @@ class B(A):
 a = A()
 b = B()
 
-print "---------"
+print("---------")
 
-print b.y
+print(b.y)

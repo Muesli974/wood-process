@@ -5,7 +5,10 @@ DRAW_COLOR = (100, 100, 100)
 
 class Entity:
     def __init__(self, w, h, x = 0.0, y = 0.0):
+<<<<<<< HEAD
         print("New class Entity")
+=======
+>>>>>>> origin/master
         #Attributes
         self.w = w
         self.h = h
