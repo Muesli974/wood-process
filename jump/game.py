@@ -30,7 +30,7 @@ class Game:
 
             #Update entities
             for entity in lvl.get():
-                entity.update(self.inputs)
+                entity.update(self.inputs, 0)
 
             #Render entities
             for entity in lvl.get():

@@ -12,7 +12,7 @@ class Entity:
         self.y = y
         self.anim = None
 
-    def update(self, inputs):
+    def update(self, inputs, pastDelay):
         pass
 
     def draw(self, screen):

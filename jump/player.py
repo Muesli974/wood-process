@@ -12,7 +12,7 @@ class Player(Entity):
         Entity.__init__(self, PLAYER_W, PLAYER_H)
         self.animate(PLAYER_IMG, PLAYER_SEQ)
 
-    def update(self, inputs):
+    def update(self, inputs, pastDelay):
         pass
 
     def draw(self, screen):

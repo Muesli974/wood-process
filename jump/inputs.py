@@ -78,11 +78,11 @@ class EventHandler:
                 onKeyEscape(self.controllers[0], True)
             elif event.type == pygame.KEYDOWN:
                 for i in range(0, self.playerNumber + 1):
-                    if self.BIND_TABLE[i].has_key(event.key):
+                    if self.BIND_TABLE[i].get(event.key) != None:
                         self.BIND_TABLE[i][event.key](self.controllers[i], True)
             elif event.type == pygame.KEYUP:
                 for i in range(0, self.playerNumber + 1):
-                    if self.BIND_TABLE[i].has_key(event.key):
+                    if self.BIND_TABLE[i].get(event.key) != None:
                         self.BIND_TABLE[i][event.key](self.controllers[i], False)
 
         return self.controllers
