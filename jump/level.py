@@ -4,7 +4,6 @@ import pygame
 
 class Level:
     def __init__(self, n):
-        print "New class Level"
         #Attributes
         self.list = [
             Player()
