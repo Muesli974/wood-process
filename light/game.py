@@ -36,7 +36,7 @@ class Game:
             self.clock.tick(self.fps)
 
             # Update the inputs
-            self.keyboard.update()
+            self.keyboard.update(self)
 
             # shadow init
             shadow = pygame.surface.Surface((1920,1080))

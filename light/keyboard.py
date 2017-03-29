@@ -12,11 +12,11 @@ class keyboard(object):
             "down": False
         }
 
-    def update(self):
+    def update(self, game):
         # Events handling
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                self.end()
+                game.end()
             elif event.type == pygame.KEYDOWN:
                 self.onKeyDown(event.key)
             elif event.type == pygame.KEYUP:
