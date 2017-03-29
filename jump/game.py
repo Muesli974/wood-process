@@ -5,6 +5,7 @@ import pygame
 MAX_FPS = 30
 WINDOW_W = 500
 WINDOW_H = 500
+BACKGROUND_COLOR = (45, 45, 45)
 
 class Game:
     def __init__(self):
@@ -34,6 +35,7 @@ class Game:
                 entity.update(self.inputs, pastDelay)
 
             #Render entities
+            screen.fill(BACKGROUND_COLOR)
             for entity in lvl.get():
                 entity.draw(screen)
 
