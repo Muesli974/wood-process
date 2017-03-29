@@ -10,13 +10,13 @@ class Layer:
 
     def update(self, inputs):
         if inputs["left"] == True:
-            self.vx -= 2
+            self.vx -= 1
         if inputs["up"] == True:
-            self.vy -= 2
+            self.vy -= 1
         if inputs["right"] == True:
-            self.vx += 2
+            self.vx += 1
         if inputs["down"] == True:
-            self.vy += 2
+            self.vy += 1
 
         self.x += self.vx
         self.y += self.vy

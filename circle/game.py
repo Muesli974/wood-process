@@ -1,85 +1,70 @@
-import pygame, layer
+import pygame, layer, light, keyboard
 
 class Game:
     fps = 60
     isRunning = True
+
+    # All the shit to display
     layers = []
-    inputs = {
-        "left": False,
-        "up": False,
-        "right": False,
-        "down": False
-    }
+    effects = []
+
 
     def __init__(self):
-        #Launch pygame modules
+        # Launch pygame modules
         pygame.display.init()
 
-        #Create the window
+        # Create the window
         self.window = Window()
 
-        #Create the clock
+        # Create the clock
         self.clock = pygame.time.Clock()
 
-        #Create some layers
+        # Create the keyboard handler
+        self.keyboard = keyboard.keyboard()
+
+        # Create some layers
         self.layers.append(layer.Layer("../assets/circle.png"))
+        self.effects.append(light.lightEffect(100))
 
     def __del__(self):
         pass
 
     def start(self):
-        #Start the main loop
+        # Start the main loop
         while self.isRunning:
-            #Time manager
+            # Time manager
             self.clock.tick(self.fps)
 
-            #Events handling
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.end()
-                elif event.type == pygame.KEYDOWN:
-                    self.onKeyDown(event.key)
-                elif event.type == pygame.KEYUP:
-                    self.onKeyUp(event.key)
+            # Update the inputs
+            self.keyboard.update()
 
-            #Update and draw all the shit
+            # shadow init
+            shadow = pygame.surface.Surface((1920,1080))
+            shadow.fill(pygame.color.Color('Grey'))
+
+            # Update and draw all the shit
             for layer in self.layers:
-                layer.update(self.inputs)
+                layer.update(self.keyboard.inputs)
                 layer.draw(self.window.win)
+            for effect in self.effects:
+                effect.update(self.keyboard.inputs)
+                effect.draw(shadow)
 
-            #Flip the screen
+            self.window.win.blit(shadow, (0, 0), special_flags= pygame.BLEND_RGBA_SUB)
+
+            # Flip the screen
             pygame.display.flip()
 
-        #Delete the Window
+        # Delete the Window
         del self.window
 
-        #Quit all pygame modules
-        #The pygame window will be deleted at this time
+        # Quit all pygame modules
+        # The pygame window will be deleted at this time
         pygame.display.quit()
 
     def end(self):
-        #Close the main loop
+        # Close the main loop
         self.isRunning = False
-
-    def onKeyDown(self, key):
-        if key == pygame.K_LEFT:
-            self.inputs["left"] = True
-        elif key == pygame.K_UP:
-            self.inputs["up"] = True
-        elif key == pygame.K_RIGHT:
-            self.inputs["right"] = True
-        elif key == pygame.K_DOWN:
-            self.inputs["down"] = True
-
-    def onKeyUp(self, key):
-        if key == pygame.K_LEFT:
-            self.inputs["left"] = False
-        elif key == pygame.K_UP:
-            self.inputs["up"] = False
-        elif key == pygame.K_RIGHT:
-            self.inputs["right"] = False
-        elif key == pygame.K_DOWN:
-            self.inputs["down"] = False
 
 class Window:
     title = "Suce ma bite!"
@@ -87,10 +72,10 @@ class Window:
     bgColor = (35, 35, 255)
 
     def __init__(self):
-        #Create the window
+        # Create the window
         self.win = pygame.display.set_mode(self.size, pygame.DOUBLEBUF)
 
-        #Fill the background and set the title
+        # Fill the background and set the title
         self.win.fill(self.bgColor)
         pygame.display.set_caption(self.title)
 
