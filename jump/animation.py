@@ -3,7 +3,7 @@ import pygame
 class Animation:
     def __init__(self, sheet, seq):
         #Attributes
-        print "New class Animation"
+        print("New class Animation")
         self.sheet = sheet
         self.length = seq[0]
         self.delay = seq[1]

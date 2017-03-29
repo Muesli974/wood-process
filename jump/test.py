@@ -4,7 +4,7 @@ class A:
     x = 'x'
 
     def __init__(self):
-        print "New class A"
+        print("New class A")
         self.y = 'y'
 
     z = 'z'
@@ -12,7 +12,7 @@ class A:
 class B(A):
     def __init__(self):
         A.__init__(self)
-        print "New class B"
+        print("New class B")
 
 a = A()
 b = B()
