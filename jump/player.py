@@ -8,10 +8,9 @@ PLAYER_SEQ = (4, 2, 0, 0, PLAYER_W, PLAYER_H)
 
 class Player(Entity):
     def __init__(self):
-<<<<<<< HEAD
+
         print("New class Player")
-=======
->>>>>>> origin/master
+
         #Attributes
         Entity.__init__(self, PLAYER_W, PLAYER_H)
         self.animate(PLAYER_IMG, PLAYER_SEQ)
