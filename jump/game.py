@@ -3,6 +3,8 @@ from inputs import EventHandler
 import pygame
 
 MAX_FPS = 30
+WINDOW_W = 500
+WINDOW_H = 500
 
 class Game:
     def __init__(self):
@@ -14,7 +16,7 @@ class Game:
         pygame.init()
 
         clk = pygame.time.Clock()
-        screen = pygame.display.set_mode((100, 100), pygame.DOUBLEBUF)
+        screen = pygame.display.set_mode((WINDOW_W, WINDOW_H), pygame.DOUBLEBUF)
         eh = EventHandler()
 
         #Load level
